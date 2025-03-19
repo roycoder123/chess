@@ -394,11 +394,11 @@ public class Piece {
 
     public ArrayList<Square> getLegalMoves(Board b, Square start){
       ArrayList<Square> moves = new ArrayList<Square>();
-      // if(b.getPreviousPiece()== null){
-      //   return moves;
-      // }
-      if(start.getOccupyingPiece().getName().equals("magician")){
+      //the magician copies the legal moves of the piece that the opponent just moved
+      //Pre condition: can't be the first turn and also the previous move of the opponent can't be the magician (the magician can't copy the magician)
+      if(start.getOccupyingPiece().getName().equals("magician") && b.getTurnCount() != 0 && b.getPreviousPiece() != null && !b.getPreviousPiece().getName().equals("magician")){
           b.getPreviousPiece().color = !b.getPreviousPiece().color;
+          System.out.println(b.getPreviousPiece());
           moves = b.getPreviousPiece().getLegalMoves(b, start);
           b.getPreviousPiece().color = !b.getPreviousPiece().color;
           return moves;

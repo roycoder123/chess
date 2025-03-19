@@ -51,10 +51,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currY;
     
     private Piece previousPiece;
+    private int turnCount;
 
     
     public Board(GameWindow g) {
-
+        turnCount = 0;
         this.g = g;
         board = new Square[8][8];
         setLayout(new GridLayout(8, 8, 0, 0));
@@ -91,6 +92,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //getter for previous moves
     public Piece getPreviousPiece() {
         return previousPiece;
+    }
+
+    //getter for turn count
+    public int getTurnCount(){
+        return turnCount;
     }
 
     
@@ -178,8 +184,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         currY = e.getY();
 
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
-
-        if (sq.isOccupied()) {
+        
+        if (sq.isOccupied() && sq != null) {
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
             if (currPiece.getColor() != whiteTurn){
@@ -192,6 +198,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
             sq.setDisplay(false);
         }
+        else{
+        }
         repaint();
     }
 
@@ -202,32 +210,28 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseReleased(MouseEvent e) {
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
-        if(endSquare != null){
+        if(endSquare != null && currPiece != null){
             for(Square i: currPiece.getLegalMoves(this, fromMoveSquare)){
                 if(endSquare == i){
                     endSquare.put(currPiece);
                     fromMoveSquare.removePiece();
                     previousPiece = currPiece; //sets previous piece for the magician to use later on
                     whiteTurn = !whiteTurn; //switches turn
+                    turnCount++;
                     break;
-                }
-                else{
-                    fromMoveSquare.put(currPiece);
                 }
             }
         }
-        else{
-            fromMoveSquare.put(currPiece);
-        }
+   
         
-
-
         for(Square [] row: board) {
         	for(Square s: row) {
         		s.setBorder(null);
         	}	
         }
-        fromMoveSquare.setDisplay(true);
+        if(fromMoveSquare != null){
+            fromMoveSquare.setDisplay(true);
+        }
         currPiece = null;
         repaint();
     }
