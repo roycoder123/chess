@@ -9,9 +9,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.LinkedList;
+//import java.util.List;
 
 import javax.swing.*;
 
@@ -32,8 +32,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = "wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = "wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = "bpawn.png";
-    private static final String RESOURCES_WMAGICIAN_PNG = "White.magician.png";
-	private static final String RESOURCES_BMAGICIAN_PNG = "Black.magician.png";
+    private static final String RESOURCES_WMAGICIAN_PNG = "whiteMagician.jpg";
+	private static final String RESOURCES_BMAGICIAN_PNG = "blackMagician.jpg";
 	
 	// Logical and graphical representations of board
 	private final Square[][] board;
@@ -104,39 +104,39 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//since we only have one kind of piece for now you need only set the same number of pieces on either side.
 	//it's up to you how you wish to arrange your pieces.
     private void initializePieces() {
-        board[0][0].put(new Piece(true, "rook", RESOURCES_WROOK_PNG));
-        board[0][1].put(new Piece(true,"knight", RESOURCES_WKNIGHT_PNG));
-        board[0][2].put(new Piece(true, "bishop", RESOURCES_WBISHOP_PNG));
-        board[0][3].put(new Piece(true, "king", RESOURCES_WKING_PNG));
-        board[0][4].put(new Piece(true, "queen", RESOURCES_WQUEEN_PNG));
-        board[0][5].put(new Piece(true, "bishop", RESOURCES_WBISHOP_PNG));
-        board[0][6].put(new Piece(true, "knight",  RESOURCES_WKNIGHT_PNG));
-        board[0][7].put(new Piece(true, "rook",  RESOURCES_WROOK_PNG));
-        board[1][0].put(new Piece(true,"magician", RESOURCES_WPAWN_PNG));
-        board[1][1].put(new Piece(true, "pawn", RESOURCES_WPAWN_PNG));
-    	board[1][2].put(new Piece(true, "pawn",  RESOURCES_WPAWN_PNG));
-        board[1][3].put(new Piece(true, "pawn",  RESOURCES_WPAWN_PNG));
-        board[1][4].put(new Piece(true, "pawn",  RESOURCES_WPAWN_PNG));
-        board[1][5].put(new Piece(true, "pawn", RESOURCES_WPAWN_PNG));
-        board[1][6].put(new Piece(true, "pawn",  RESOURCES_WPAWN_PNG));
-        board[1][7].put(new Piece(true, "magician", RESOURCES_WPAWN_PNG));
+        board[0][0].put(new Rook(true, RESOURCES_WROOK_PNG));
+        board[0][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+        board[0][2].put(new Bishop(true, RESOURCES_WBISHOP_PNG));
+        board[0][3].put(new King(true, RESOURCES_WKING_PNG));
+        board[0][4].put(new Queen(true, RESOURCES_WQUEEN_PNG));
+        board[0][5].put(new Bishop(true, RESOURCES_WBISHOP_PNG));
+        board[0][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+        board[0][7].put(new Rook(true, RESOURCES_WROOK_PNG));
+        board[1][0].put(new Magician(this, true, RESOURCES_WMAGICIAN_PNG));
+        board[1][1].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+    	board[1][2].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+        board[1][3].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+        board[1][4].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+        board[1][5].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+        board[1][6].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+        board[1][7].put(new Magician(this, true, RESOURCES_WMAGICIAN_PNG));
 
-        board[7][0].put(new Piece(false, "rook", RESOURCES_BROOK_PNG));
-        board[7][1].put(new Piece(false, "knight", RESOURCES_BKNIGHT_PNG));
-        board[7][2].put(new Piece(false, "bishop", RESOURCES_BBISHOP_PNG));
-        board[7][3].put(new Piece(false, "king",  RESOURCES_BKING_PNG));
-        board[7][4].put(new Piece(false, "queen", RESOURCES_BQUEEN_PNG));
-        board[7][5].put(new Piece(false, "bishop", RESOURCES_BBISHOP_PNG));
-        board[7][6].put(new Piece(false, "knight", RESOURCES_BKNIGHT_PNG));
-        board[7][7].put(new Piece(false, "rook", RESOURCES_BROOK_PNG));
-        board[6][0].put(new Piece(false, "magician", RESOURCES_BPAWN_PNG));
-        board[6][1].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-    	board[6][2].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-        board[6][3].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-        board[6][4].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-        board[6][5].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-        board[6][6].put(new Piece(false, "pawn", RESOURCES_BPAWN_PNG));
-        board[6][7].put(new Piece(false, "magician", RESOURCES_BPAWN_PNG));
+        board[7][0].put(new Rook(false, RESOURCES_BROOK_PNG));
+        board[7][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+        board[7][2].put(new Bishop(false, RESOURCES_BBISHOP_PNG));
+        board[7][3].put(new King(false, RESOURCES_BKING_PNG));
+        board[7][4].put(new Queen(false, RESOURCES_BQUEEN_PNG));
+        board[7][5].put(new Bishop(false, RESOURCES_BBISHOP_PNG));
+        board[7][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+        board[7][7].put(new Rook(false, RESOURCES_BROOK_PNG));
+        board[6][0].put(new Magician(this, false, RESOURCES_BMAGICIAN_PNG));
+        board[6][1].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+    	board[6][2].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+        board[6][3].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+        board[6][4].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+        board[6][5].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+        board[6][6].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+        board[6][7].put(new Magician(this, false, RESOURCES_BMAGICIAN_PNG));
     }
     
 
@@ -172,7 +172,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             if ((currPiece.getColor() && whiteTurn)
                     || (!currPiece.getColor()&& !whiteTurn)) {
                 final Image img = currPiece.getImage();
-                g.drawImage(img, currX, currY, null);
+                g.drawImage(img.getScaledInstance(50, 50, 0), currX, currY, null);
             }
         }
         
