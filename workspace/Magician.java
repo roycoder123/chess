@@ -32,6 +32,7 @@ public class Magician extends Piece {
     //if the piece capture into it legally.
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
       ArrayList<Square> controlledSquares = new ArrayList<Square>();
+      if(b.getPreviousPiece()!= null)
       controlledSquares = b.getPreviousPiece().getLegalMoves(b, start);
       return controlledSquares;
     }

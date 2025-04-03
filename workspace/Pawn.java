@@ -10,13 +10,13 @@ public class Pawn extends Piece{
         if(start.getOccupyingPiece().getColor()){
             if(start.getCol() + 1 < 8){
               Square rightCapture = board[start.getRow() + 1][start.getCol() + 1];
-              if(rightCapture.isOccupied() || !rightCapture.getOccupyingPiece().getColor()){
+              if(!rightCapture.isOccupied() || !rightCapture.getOccupyingPiece().getColor()){
                 controlledSquares.add(rightCapture);
               }
             }
             if(start.getCol() - 1 >= 0){
               Square leftCapture = board[start.getRow() + 1][start.getCol() - 1];
-              if(leftCapture.isOccupied() || !leftCapture.getOccupyingPiece().getColor()){
+              if(!leftCapture.isOccupied() || !leftCapture.getOccupyingPiece().getColor()){
                 controlledSquares.add(leftCapture);
               }
             } 
@@ -26,13 +26,13 @@ public class Pawn extends Piece{
         if(!start.getOccupyingPiece().getColor()){
             if(start.getCol() + 1 < 8){
               Square rightCapture = board[start.getRow() - 1][start.getCol() + 1];
-              if(rightCapture.isOccupied() || rightCapture.getOccupyingPiece().getColor()){
+              if(!rightCapture.isOccupied() || rightCapture.getOccupyingPiece().getColor()){
                 controlledSquares.add(rightCapture);
               }
             }
             if(start.getCol() - 1 >= 0){
               Square leftCapture = board[start.getRow() - 1][start.getCol() - 1];
-              if(leftCapture.isOccupied() || leftCapture.getOccupyingPiece().getColor()){
+              if(!leftCapture.isOccupied() || leftCapture.getOccupyingPiece().getColor()){
                 controlledSquares.add(leftCapture);
               }
             } 

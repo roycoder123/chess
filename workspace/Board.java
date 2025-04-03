@@ -52,7 +52,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     
     private Piece previousPiece;
     private int turnCount;
-
+    private boolean kingColor;
     
     public Board(GameWindow g) {
         turnCount = 0;
@@ -156,6 +156,28 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         return this.currPiece;
     }
 
+    //precondition - the board is initialized and contains a king of either color. 
+    //The boolean kingColor corresponds to the color of the king we wish to know the status of.
+    //postcondition - returns true of the king is in check and false otherwise.
+    public boolean isInCheck(boolean kingColor){
+        boolean check = false;
+        for(int i = 0; i < board.length; i++){ //loops through rows
+            for(int z = 0; z < board[i].length; z++){ //loops through columns
+                if(board[i][z].isOccupied() && !board[i][z].getOccupyingPiece().getColor() == kingColor){
+                    if(board[i][z].getOccupyingPiece().getControlledSquares(board, board[i][z])!= null){
+                    for(Square s: board[i][z].getOccupyingPiece().getControlledSquares(board, board[i][z])){
+                        if(s.getOccupyingPiece() instanceof King && s.getOccupyingPiece().getColor() == kingColor){
+                            return true;
+                        }
+                    }
+                }
+                }
+            }
+        }
+        return false;
+    }
+        
+    
     @Override
     public void paintComponent(Graphics g) {
      
@@ -215,10 +237,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if(endSquare == i){
                     endSquare.put(currPiece);
                     fromMoveSquare.removePiece();
-                    previousPiece = currPiece; //sets previous piece for the magician to use later on
-                    whiteTurn = !whiteTurn; //switches turn
-                    turnCount++;
-                    break;
+                    if(isInCheck(whiteTurn)){
+                        fromMoveSquare.put(currPiece);
+                        endSquare.removePiece();
+                        break;
+                    }
+                    else{
+                        previousPiece = currPiece; //sets previous piece for the magician to use later on
+                        whiteTurn = !whiteTurn; //switches turn
+                        turnCount++;
+                        break;
+                    }
                 }
             }
         }
